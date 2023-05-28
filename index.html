@@ -1,1 +1,99 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        img {
+            width: 50%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        
+        .emoji {
+            position: absolute;
+            top: -50px;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy Birthday!</h1>
+    <img src="path_to_your_image.jpg" alt="Birthday Image">
+    <h2>John Doe</h2>
+    
+    <div id="player"></div>
+    
+    <script>
+        function onYouTubeIframeAPIReady() {
+            const player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'VIDEO_ID', // Replace with the YouTube video ID
+                playerVars: {
+                    autoplay: 1,
+                    loop: 1,
+                    playlist: 'VIDEO_ID' // Replace with the same YouTube video ID
+                },
+                events: {
+                    onReady: onPlayerReady
+                }
+            });
+        }
+        
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        const emojis = ['🎉', '🎂', '🎈', '🎁', '🥳']; // Add more emojis if desired
+        const emojiContainer = document.createElement('div');
+        emojiContainer.classList.add('emoji-container');
+        document.body.appendChild(emojiContainer);
+        
+        function createEmoji() {
+            const emoji = document.createElement('span');
+            emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.classList.add('emoji');
+            
+            const startPos = Math.random() * 100;
+            emoji.style.left = startPos + 'vw';
+            emoji.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            
+            emoji.addEventListener('animationend', () => {
+                emoji.remove();
+            });
+            
+            emojiContainer.appendChild(emoji);
+        }
+        
+        setInterval(createEmoji, 200); // Adjust the interval for more or fewer emojis
+    </script>
+</body>
+</html>
